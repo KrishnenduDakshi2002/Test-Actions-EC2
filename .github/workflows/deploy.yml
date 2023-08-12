@@ -35,9 +35,9 @@ jobs:
 
       - name: Getting the Encrypted .pem.enc file
         run: |
-          aws s3 cp --profile statuscode0 s3://status-code0-high-on-bugs-artifacts/StatusCode0-high-on-bugs.pem.enc .
-          openssl aes-256-cbc -d -in StatusCode0-high-on-bugs.pem.enc -out StatusCode0-high-on-bugs.pem -k ${{secrets.PEM_DECRYPT_PASSPHRASE}}
-          chmod 400 StatusCode0-high-on-bugs.pem
+          aws s3 cp --profile statuscode0 s3://status-code0-high-on-bugs-artifacts/statuscode0-ec2-cred.pem.enc .
+          openssl aes-256-cbc -d -in statuscode0-ec2-cred.pem.enc -out statuscode0-ec2-cred.pem -k ${{secrets.PEM_DECRYPT_PASSPHRASE}}
+          chmod 400 statuscode0-ec2-cred.pem
 
       - name: Create .ssh file
         run: mkdir -p ~/.ssh
@@ -46,4 +46,4 @@ jobs:
           ssh-keyscan -H ${{secrets.EC2_HOST_IP}} >> ~/.ssh/known_hosts
 
       - name: Deploying to EC2
-        run: ssh -i StatusCode0-high-on-bugs.pem ubuntu@${{secrets.EC2_HOST_IP}} "ls -a"
+        run: ssh -i statuscode0-ec2-cred.pem ubuntu@${{secrets.EC2_HOST_IP}} "ls -a"
