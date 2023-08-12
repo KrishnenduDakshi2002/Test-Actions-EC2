@@ -46,4 +46,4 @@ jobs:
           ssh-keyscan -H ${{secrets.EC2_HOST_IP}} >> ~/.ssh/known_hosts
 
       - name: Deploying to EC2
-        run: ssh -i statuscode0-ec2-cred.pem ubuntu@${{secrets.EC2_HOST_IP}} "ls"
+        run: ssh -i statuscode0-ec2-cred.pem ubuntu@${{secrets.EC2_HOST_IP}} "mkdir -p /api && cd /api && git clone https://github.com/KrishnenduDakshi2002/Test-Actions-EC2.git && cd Test-Actions-EC2 && npm install && npm start"
