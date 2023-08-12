@@ -13,33 +13,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup nodejs
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Setup AWS CLI
-        run: |
-          mkdir -p ~/.aws
-          echo "[profile statuscode0]" >> ~/.aws/config
-          echo "aws_access_key_id=${{secrets.KRISHNENDU_ACCESSKEY}}" >> ~/.aws/config
-          echo "aws_secret_access_key=${{secrets.KRISHNENDU_SECRET_KEY}}" >> ~/.aws/config
-          echo "region=ap-south-1" >> ~/.aws/config
-
-      - name: Display AWS configuration
-        run: cat ~/.aws/config
-
-      - name: Run AWS cli for S3
-        run: aws s3 ls --profile statuscode0
-
-      - name: Getting the Encrypted .pem.enc file
-        run: |
-          aws s3 cp --profile statuscode0 s3://status-code0-high-on-bugs-artifacts/StatusCode0-high-on-bugs.pem.enc .
-          openssl aes-256-cbc -d -in StatusCode0-high-on-bugs.pem.enc -out StatusCode0-high-on-bugs.pem -k ${{secrets.PEM_DECRYPT_PASSPHRASE}}
-          chmod 400 StatusCode0-high-on-bugs.pem
-
-      - name: Deploying to EC2
-        run: ssh -i StatusCode0-high-on-bugs.pem ubuntu@${{secrets.EC2_HOST_IP}} "ssh -T git@github.com"
+      - name: SSH to EC2
+        run: ssh -i ${{secrets.EC2_CRED}} ubuntu@${{secrets.EC2_HOST_IP}} "mkdire -p /api/ && cd /api && git clone https://github.com/KrishnenduDakshi2002/Test-Actions-EC2.git && ls -a"
