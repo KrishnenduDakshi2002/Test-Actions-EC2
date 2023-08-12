@@ -17,7 +17,7 @@ jobs:
           node-version: '16'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Setup AWS CLI
         run: |
@@ -46,4 +46,4 @@ jobs:
           ssh-keyscan -H ${{secrets.EC2_HOST_IP}} >> ~/.ssh/known_hosts
 
       - name: Deploying to EC2
-        run: ssh -i StatusCode0-high-on-bugs.pem ubuntu@${{secrets.EC2_HOST_IP}} "ls -a"
+        run: ssh -i StatusCode0-high-on-bugs.pem ubuntu@${{secrets.EC2_HOST_IP}} "ls"
