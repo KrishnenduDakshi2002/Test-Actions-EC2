@@ -14,4 +14,4 @@ jobs:
         uses: actions/checkout@v2
 
       - name: SSH to EC2
-        run: ssh -i ${{secrets.EC2_CRED}} ubuntu@${{secrets.EC2_HOST_IP}} "mkdire -p /api/ && cd /api && git clone https://github.com/KrishnenduDakshi2002/Test-Actions-EC2.git && ls -a"
+        run: ssh -i ${{secrets.EC2_CRED}} ubuntu@$13.233.35.95 "mkdir -p /api/ && cd /api && git clone https://github.com/KrishnenduDakshi2002/Test-Actions-EC2.git && ls -a"
