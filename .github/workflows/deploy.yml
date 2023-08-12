@@ -38,4 +38,4 @@ jobs:
                     chmod 400 StatusCode0-high-on-bugs.pem
 
             - name: Deploying to EC2
-                run: ssh -i StatusCode0-high-on-bugs.pem ubuntu@${{secrets.EC2_HOST_IP}} "ssh -vT git@github.com"
+                run: ssh -i StatusCode0-high-on-bugs.pem ubuntu@${{secrets.EC2_HOST_IP}} "ssh -T git@github.com"
