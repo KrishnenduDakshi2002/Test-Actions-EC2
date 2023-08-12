@@ -1,17 +1,15 @@
-name: Test Deploy to EC2
-
+name: Deploy API to AWS EC2
 on:
   push:
     branches:
-      - main
-
+      - ft/api
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
       - name: Setup nodejs
         uses: actions/setup-node@v2
@@ -19,7 +17,7 @@ jobs:
           node-version: '16'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Setup AWS CLI
         run: |
@@ -41,5 +39,11 @@ jobs:
           openssl aes-256-cbc -d -in StatusCode0-high-on-bugs.pem.enc -out StatusCode0-high-on-bugs.pem -k ${{secrets.PEM_DECRYPT_PASSPHRASE}}
           chmod 400 StatusCode0-high-on-bugs.pem
 
+      - name: Create .ssh file
+        run: mkdir -p ~/.ssh
+      - name: Getting the EC2 host IP
+        run: |
+          ssh-keyscan -H ${{secrets.EC2_HOST_IP}} >> ~/.ssh/known_hosts
+
       - name: Deploying to EC2
-        run: ssh -i StatusCode0-high-on-bugs.pem ubuntu@${{secrets.EC2_HOST_IP}} "git --version"
+        run: ssh -i StatusCode0-high-on-bugs.pem ubuntu@${{secrets.EC2_HOST_IP}} "ls"
