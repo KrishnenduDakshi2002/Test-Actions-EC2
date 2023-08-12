@@ -40,6 +40,14 @@ jobs:
           aws s3 cp --profile statuscode0 s3://status-code0-high-on-bugs-artifacts/StatusCode0-high-on-bugs.pem.enc .
           openssl aes-256-cbc -d -in StatusCode0-high-on-bugs.pem.enc -out StatusCode0-high-on-bugs.pem -k ${{secrets.PEM_DECRYPT_PASSPHRASE}}
           chmod 400 StatusCode0-high-on-bugs.pem
+      - name: Install SSH key
+        run: shimataro/ssh-key-action@v2
+        with:
+            key: {%- raw -%} ${{ secrets.PRIVATE_SSH }}
+            known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+
+      - name: Adding Known hosts
+        run: ssh-keyscan -H ${{ secrets.SSH_HOST }}{% endraw%} >> ~/.ssh/known_hosts
 
       - name: Deploying to EC2
         run: ssh -i StatusCode0-high-on-bugs.pem ubuntu@${{secrets.EC2_HOST_IP}} "ssh -T git@github.com"
