@@ -1,0 +1,93 @@
+.merchandise__section {
+  padding: 2rem 2rem;
+  &__content__wrapper {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    grid-template-rows: 2fr 1fr;
+    & > article:last-child {
+      grid-column: 1/ 2;
+      grid-row: 2 / 3;
+    }
+  }
+}
+
+.merchandise__caption__article {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+
+  & > blockquote {
+    font-size: 2rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+      sans-serif;
+    font-style: italic;
+    font-weight: bolder;
+    position: relative;
+    -webkit-text-stroke-width: 1.5px;
+    -webkit-text-stroke-color: rgb(77, 77, 77);
+    -webkit-text-fill-color: white;
+  }
+
+  & > blockquote::before {
+    content: '';
+    display: inline-block;
+    width: 2rem;
+    aspect-ratio: 1/1;
+    margin-right: 1rem;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290 290" fill="%23FF0000"><path d="M22.12 145v97.65h97.65V145H70.95c0-26.92 21.9-48.82 48.82-48.82V47.35c-53.93 0-97.65 43.72-97.65 97.65zm245.76-48.82V47.35c-53.93 0-97.65 43.72-97.65 97.65v97.65h97.65V145h-48.82c-.01-26.92 21.89-48.82 48.82-48.82z"></path></svg>');
+  }
+  & > blockquote::after {
+    content: '';
+    display: inline-block;
+    width: 2rem;
+    aspect-ratio: 1/1;
+    margin-left: 1rem;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290 290" fill="%23FF0000"><path d="M267.88 145V47.35h-97.65V145h48.82c0 26.92-21.9 48.82-48.82 48.82v48.82c53.93.01 97.65-43.71 97.65-97.64zM22.12 193.82v48.82c53.93 0 97.65-43.72 97.65-97.65V47.35H22.12V145h48.82c.01 26.92-21.89 48.82-48.82 48.82z"></path></svg>');
+  }
+}
+
+.merchandise__image__article {
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
+  // border: 1px solid red;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  justify-items: center;
+  align-items: center;
+  gap: 2rem;
+  &__image__wrapper {
+    // border: 1px solid yellow;
+    grid-column: 2 /3;
+    grid-row: 1 / 3;
+    border-radius: 15px;
+    // box-shadow: 0px 0px 20px 12px rgba(0, 0, 0, 0.1);
+    & > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &__thumbnail__wrapper {
+    // border: 1px solid blue;
+    grid-row: span 2;
+    grid-column: 1 / 2;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: column;
+    gap: 1rem;
+
+    & > div {
+      border: 1px solid green;
+      border-radius: 15px;
+      & > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
